@@ -128,7 +128,7 @@ tmux_conf_theme_window_bg="default"
 # highlight focused pane, possible values are:
 #   - true
 #   - false (default)
-tmux_conf_theme_highlight_focused_pane=false
+tmux_conf_theme_highlight_focused_pane=true
 
 # focused pane colours:
 tmux_conf_theme_focused_pane_bg="$tmux_conf_theme_colour_2"
@@ -287,13 +287,17 @@ tmux_conf_theme_pairing_bg="none"
 tmux_conf_theme_pairing_attr="none"
 
 # prefix indicator
-tmux_conf_theme_prefix="⌨"                  # U+2328
+#🔔U+1F514
+#“🤣” (U+1F923)
+#tmux_conf_theme_prefix="⌨"                  # U+2328
+tmux_conf_theme_prefix="🤣"                  # U+2328
 tmux_conf_theme_prefix_fg="none"
 tmux_conf_theme_prefix_bg="none"
 tmux_conf_theme_prefix_attr="none"
 
 # mouse indicator
-tmux_conf_theme_mouse="↗"                   # U+2197
+#tmux_conf_theme_mouse="↗"                   # U+2197
+tmux_conf_theme_mouse="🖱"                   # U+1F5B1
 tmux_conf_theme_mouse_fg="none"
 tmux_conf_theme_mouse_bg="none"
 tmux_conf_theme_mouse_attr="none"
@@ -361,7 +365,7 @@ tmux_conf_theme_clock_style="24"
 #   - false (default)
 #   - disabled
 # on Linux, this requires xsel, xclip or wl-copy
-tmux_conf_copy_to_os_clipboard=false
+tmux_conf_copy_to_os_clipboard=true
 
 
 # -- urlscan -------------------------------------------------------------------
@@ -375,15 +379,15 @@ tmux_conf_urlscan_options="--compact --dedupe"
 # this is the place to override or undo settings
 
 # increase history size
-#set -g history-limit 10000
+set -g history-limit 100000
 
 # start with mouse mode enabled
-#set -g mouse on
+set -g mouse on
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
-#set -g status-keys vi
-#set -g mode-keys vi
+set -g status-keys vi
+set -g mode-keys vi
 
 # replace C-b by C-a instead of using both prefixes
 # set -gu prefix2
@@ -393,7 +397,15 @@ tmux_conf_urlscan_options="--compact --dedupe"
 # bind C-a send-prefix
 
 # if you don't want Oh my tmux! to alter a binding, use #!important
-# bind c new-window -c '#{pane_current_path}' #!important
+# bind v new-window -c #{pane_current_path} #!important
+bind \\ split-window -h -c "#{pane_current_path}"#!important
+bind - split-window -c "#{pane_current_path}"#!important
+
+
+# load some layout
+bind D source-file ~/.tmux/layout1
+
+
 
 # move status line to top
 #set -g status-position top
@@ -411,7 +423,7 @@ tmux_conf_urlscan_options="--compact --dedupe"
 # by default, launching tmux will update tpm and all plugins
 #   - true (default)
 #   - false
-tmux_conf_update_plugins_on_launch=true
+tmux_conf_update_plugins_on_launch=false
 
 # by default, reloading the configuration will update tpm and all plugins
 #   - true (default)
@@ -422,7 +434,7 @@ tmux_conf_update_plugins_on_reload=true
 # plugins are enabled
 #   - true (default)
 #   - false
-tmux_conf_uninstall_plugins_on_reload=true
+tmux_conf_uninstall_plugins_on_reload=false
 
 # /!\ the tpm bindings differ slightly from upstream:
 #   - installing plugins: <prefix> + I
@@ -434,11 +446,11 @@ tmux_conf_uninstall_plugins_on_reload=true
 
 # to enable a plugin, use the 'set -g @plugin' syntax:
 # visit https://github.com/tmux-plugins for available plugins
-#set -g @plugin 'tmux-plugins/tmux-copycat'
-#set -g @plugin 'tmux-plugins/tmux-cpu'
-#set -g @plugin 'tmux-plugins/tmux-resurrect'
-#set -g @plugin 'tmux-plugins/tmux-continuum'
-#set -g @continuum-restore 'on'
+set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'tmux-plugins/tmux-cpu'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @continuum-restore 'on'
 
 
 # -- custom variables ----------------------------------------------------------
